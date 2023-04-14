@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 
 	"github.com/asaskevich/govalidator"
 )

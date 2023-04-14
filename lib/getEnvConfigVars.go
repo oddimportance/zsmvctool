@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 )
 
 type GetEnvConfigVars struct {
@@ -15,7 +15,7 @@ type GetEnvConfigVars struct {
 func (g *GetEnvConfigVars) Initiate(envConfigFilePath string) persistence.EnvConfigVars {
 
 	var _readFile = new(ReadFile)
-	var fileContent = _readFile.Initiate(envConfigFilePath + "zsmvctool-api.json")
+	var fileContent = _readFile.Initiate(envConfigFilePath + "zsmvctool.json")
 
 	g.unmarshalToJson(fileContent)
 

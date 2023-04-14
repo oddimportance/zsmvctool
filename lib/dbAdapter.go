@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 )
 
 type DbAdapter struct {

@@ -6,7 +6,7 @@ import (
 	"html/template"
 	"strings"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 )
 
 type Translator_i18n struct {

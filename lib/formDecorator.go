@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"strings"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 )
 
 // By default theme path is set to templates/uielements

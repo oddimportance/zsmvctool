@@ -11,7 +11,7 @@ import (
 	"os"
 	"sync"
 
-	"zsmvctool-api/persistence"
+	"zsmvctool/persistence"
 )
 
 type ManageUploadedFiles struct {
