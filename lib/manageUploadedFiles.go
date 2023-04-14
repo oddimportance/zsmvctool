@@ -11,7 +11,7 @@ import (
 	"os"
 	"sync"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 type ManageUploadedFiles struct {

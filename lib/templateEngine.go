@@ -8,7 +8,7 @@ import (
 	"html/template"
 	"net/http"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 type TemplateEngine struct {

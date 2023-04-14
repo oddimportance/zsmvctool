@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 
 	//	"strings"
 	"sync"

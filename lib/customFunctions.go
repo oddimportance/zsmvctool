@@ -16,7 +16,7 @@ import (
 	"net/http"
 	"os"
 
-	// "zsmvctool/persistence"
+	// "github.com/oddimportance/zsmvctool/persistence"
 	"reflect"
 	"strconv"
 	"strings"

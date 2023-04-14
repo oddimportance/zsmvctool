@@ -6,7 +6,7 @@ import (
 	"html"
 	"html/template"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 
 	"gopkg.in/gomail.v2"
 )

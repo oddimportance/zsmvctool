@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	persistence "zsmvctool/persistence"
+	persistence "github.com/oddimportance/zsmvctool/persistence"
 )
 
 type RouteMaker struct {

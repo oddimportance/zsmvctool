@@ -3,7 +3,7 @@ package lib
 import (
 	"fmt"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 func (f *FormHandler) initOptionsFromDatabase(element persistence.FormElements) []persistence.Option {

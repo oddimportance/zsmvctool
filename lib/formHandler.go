@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 type FormHandler struct {

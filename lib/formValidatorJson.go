@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 
 	"github.com/asaskevich/govalidator"
 )

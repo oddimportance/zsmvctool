@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 type GetEnvConfigVars struct {

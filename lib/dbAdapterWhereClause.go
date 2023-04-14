@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"zsmvctool/persistence"
+	"github.com/oddimportance/zsmvctool/persistence"
 )
 
 func (d *DbAdapter) Where(field string, value string, wildcard persistence.Wildcard) *DbAdapter {
