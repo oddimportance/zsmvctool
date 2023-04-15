@@ -41,10 +41,25 @@ func (h *HandleFilePath) GetPrivatePath() string {
 	return h._envConfigVars.EnvConfigVarList["privateStorage"]
 }
 
+// reusables path
+func (h *HandleFilePath) GetReusablesImgPath_Large() string {
+	return h._envConfigVars.EnvConfigVarList["reusablesImgStorage_large"]
+}
+
+func (h *HandleFilePath) GetReusablesImgPath_Thumbnails() string {
+	return h._envConfigVars.EnvConfigVarList["reusablesImgStorage_thumbnails"]
+}
 func (h *HandleFilePath) GetPublicStoragePath() string {
 	return h._envConfigVars.EnvConfigVarList["publicStoragePath"]
 }
 
+func (h *HandleFilePath) GetPremiumpackageImgPath_Large() string {
+	return h._envConfigVars.EnvConfigVarList["premiumpackageImgStorage_large"]
+}
+
+func (h *HandleFilePath) GetPremiumpackageImgPath_Thumbnails() string {
+	return h._envConfigVars.EnvConfigVarList["premiumpackageImgStorage_thumbnails"]
+}
 func (h *HandleFilePath) GetProfilePicPath_Large() string {
 	return h._envConfigVars.EnvConfigVarList["profilePicStorage_large"]
 }
@@ -65,8 +80,23 @@ func (h *HandleFilePath) GetRestaurantImgPath_Large() string {
 	return h._envConfigVars.EnvConfigVarList["restaurantImgStorage_large"]
 }
 
+func (h *HandleFilePath) GetReusableImgPath_Thumbnails() string {
+	return h._envConfigVars.EnvConfigVarList["reusablesImgStorage_thumbnails"]
+}
+
+func (h *HandleFilePath) GetReusableImgPath_Large() string {
+	return h._envConfigVars.EnvConfigVarList["reusablesImgStorage_large"]
+}
+
 func (h *HandleFilePath) GetRestaurantImgPath_Thumbnails() string {
 	return h._envConfigVars.EnvConfigVarList["restaurantImgStorage_thumbnails"]
+}
+func (h *HandleFilePath) GetMenuItemImgPath_Large() string {
+	return h._envConfigVars.EnvConfigVarList["menuitemImgStorage_large"]
+}
+
+func (h *HandleFilePath) GetMenuItemImgPath_Thumbnails() string {
+	return h._envConfigVars.EnvConfigVarList["menuitemImgStorage_thumbnails"]
 }
 
 func (h *HandleFilePath) GetRestaurantImgCDNPath_Large() string {

@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/kevinburke/twilio-go"
+
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 )
@@ -227,6 +227,10 @@ func TrimSuffix(s, suffix string) string {
 
 func FindReplace(stringToSearch string, find string, replace string) string {
 	return strings.Replace(stringToSearch, find, replace, -1)
+}
+
+func CovertStringToDate(dateToConvert, dateFormat string) (time.Time, error) {
+	return time.Parse(dateFormat, dateToConvert)
 }
 
 func makeDateTimeFormString(format, dateTime, layout string) string {
@@ -509,6 +513,51 @@ func NumberToGermanFormat(number interface{}) string {
 	return messagePrinter.Sprintf("%d", number)
 }
 
+func StringToTimeHourAndMinute(timeString string) (time.Time, error) {
+	// specify the layout of the input time string in this case without seconds
+	return time.Parse("15:04", timeString)
+}
+func ValidateTimeAsStringInRange(timeBegin, timeEnd string) bool {
+	t1, err := StringToTimeHourAndMinute(timeBegin)
+	if err != nil {
+		return false
+	}
+	t2, err := StringToTimeHourAndMinute(timeEnd)
+	if err != nil {
+		return false
+	}
+	return ValidateTimeInRange(t1, t2)
+
+}
+
+func ValidateTimeInRange(t1, t2 time.Time) bool {
+	return t1.Before(t2) && !t1.Equal(t2)
+}
+
+func ValidateDateAsStringNotInPast(dateToValidate, dateFormat string) bool {
+	date, err := time.Parse(dateToValidate, dateFormat)
+	if err != nil {
+		return false
+	}
+	return time.Now().Before(date)
+}
+
+func AssociateDbResultToColumnValue(columnToAssociate string, dbResult map[int]map[string]string) map[string]map[string]string {
+	var associatedArrayToReturn = map[string]map[string]string{}
+	for _, row := range dbResult {
+		associatedArrayToReturn[row[columnToAssociate]] = row
+	}
+	return associatedArrayToReturn
+}
+
+func RestaurantTimeSlotAssociateDbResultToColumnValue(columnToAssociate, valueToAssociate string, dbResult map[int]map[string]string) map[string]map[string]string {
+	var associatedArrayToReturn = map[string]map[string]string{}
+	for _, row := range dbResult {
+		associatedArrayToReturn[row[columnToAssociate]] = map[string]string{row[valueToAssociate]: row[valueToAssociate]}
+	}
+	return associatedArrayToReturn
+}
+
 func StructToArray(structToParse interface{}) map[string]string {
 
 	v := reflect.ValueOf(structToParse)
@@ -554,31 +603,6 @@ func GnerateOTP(length int) (string, error) {
 	return string(b), nil
 }
 
-func Sendotp(
-	accountSid string,
-	authToken string,
-	from string,
-	to string,
-	otp string) {
-
-	message := fmt.Sprintf("Your OTP is %s", otp)
-
-	// إنشاء عميل Twilio
-	client := twilio.NewClient(accountSid, authToken, nil)
-
-	// Send a message
-	msg, err := client.Messages.SendMessage(from, to, message, nil)
-
-	fmt.Println(msg)
-	fmt.Println(err)
-	// التحقق من الخطأ
-	if err != nil {
-		fmt.Println("Error sending message: ", err.Error())
-	} else {
-		fmt.Println("Message sent successfully")
-	}
-}
-
 func RemoveprefixToArray(MapT []map[string]string, prefix string, replacement string) []map[string]string {
 	for _, innerMap := range MapT {
 		for key, value := range innerMap {
@@ -610,4 +634,40 @@ func RemoveprefixToElemnt(MapT map[string]string, prefix string, replacement str
 func GenerateRandomNumericString(length int) string {
 	var pattern = []rune("0123456789")
 	return createRandomString(length, pattern)
+}
+
+type RandomStringLength int
+
+const (
+	_32  RandomStringLength = 32
+	_64  RandomStringLength = 64
+	_128 RandomStringLength = 128
+	_256 RandomStringLength = 256
+	_512 RandomStringLength = 512
+)
+
+func GenerateRandomStringWithMicrotime(strLength RandomStringLength) string {
+	var length int
+	switch strLength {
+	case _32:
+		length = 32
+	case _64:
+		length = 64
+	case _128:
+		length = 128
+	case _256:
+		length = 256
+	case _512:
+		length = 512
+
+	}
+
+	var microtime string = IntToStr(GetCurrentMicrotime())
+	var randomstring = GenerateRandomAlphaNumericString(length - len(microtime))
+	return microtime + randomstring
+}
+
+func GetCurrentMicrotime() int {
+	now := time.Now()
+	return int(now.UnixNano() / 1000)
 }

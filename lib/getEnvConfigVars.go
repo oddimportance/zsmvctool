@@ -15,7 +15,7 @@ type GetEnvConfigVars struct {
 func (g *GetEnvConfigVars) Initiate(envConfigFilePath string) persistence.EnvConfigVars {
 
 	var _readFile = new(ReadFile)
-	var fileContent = _readFile.Initiate(envConfigFilePath + "zsmvctool.json")
+	var fileContent = _readFile.Initiate(envConfigFilePath + "github.com/oddimportance/zsmvctool.json")
 
 	g.unmarshalToJson(fileContent)
 

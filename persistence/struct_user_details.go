@@ -22,6 +22,7 @@ type UserDetails struct {
 	Mobile_phone string
 	RestaurantId string
 	CountryCode  string
+	Role         string
 }
 
 var UserschemaRegister map[int]JsonForm = map[int]JsonForm{
