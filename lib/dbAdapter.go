@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 
@@ -36,6 +35,7 @@ type DbAdapter struct {
 	dbCredentials            *Credentials
 	mysqlFunctionKey         string
 	queryHasPotentialThreat  bool
+	_envConfigVars           GetEnvConfigVars
 }
 
 type Credentials struct {
@@ -47,6 +47,8 @@ type Credentials struct {
 }
 
 func (d *DbAdapter) Connect(dbTable string, dbTableFieldPrefix string, _handleRedirectAndPanic *HandleRedirectAndPanic) {
+
+	d.initConfigVars()
 
 	d.SetHandleRedirectAndPanic(_handleRedirectAndPanic)
 
@@ -105,6 +107,13 @@ func (d *DbAdapter) PrintDBDetails() {
 	fmt.Println()
 }
 
+func (d *DbAdapter) initConfigVars() {
+
+	d._envConfigVars = GetEnvConfigVars{}
+	d._envConfigVars.Initiate(persistence.EnvConfigVarsFilePath)
+
+}
+
 func (d *DbAdapter) GetSqlConnection() *sql.DB {
 	return d._db
 }
@@ -154,34 +163,17 @@ func (d *DbAdapter) GetDbTableFieldPrefix() string {
 
 func (d *DbAdapter) getMysqlConfig() *Credentials {
 
-	port := d.getEnvConf("MP_API_DATABASE_PORT")
-	if port == "" {
-		port = "3306"
-	}
+	port := GetEnvConf(d._envConfigVars.GetConfVar("env_key_database_port"))
 
 	var dbCredentials = new(Credentials)
-	dbCredentials.host = d.getEnvConf("MP_API_DATABASE_HOST")
+	dbCredentials.host = GetEnvConf(d._envConfigVars.GetConfVar("env_key_database_host"))
 	dbCredentials.port = port
-	dbCredentials.database = d.getEnvConf("MP_API_DATABASE_DB")
-	dbCredentials.user = d.getEnvConf("MP_API_DATABASE_USERNAME")
-	dbCredentials.password = d.getEnvConf("MP_API_DATABASE_PASSWORD")
+	dbCredentials.database = GetEnvConf(d._envConfigVars.GetConfVar("env_key_database_db"))
+	dbCredentials.user = GetEnvConf(d._envConfigVars.GetConfVar("env_key_database_user"))
+	dbCredentials.password = GetEnvConf(d._envConfigVars.GetConfVar("env_key_database_password"))
 
 	return dbCredentials
 
-}
-
-func (d *DbAdapter) getEnvConf(key string) string {
-
-	envConf, ok := os.LookupEnv(key)
-	if !ok {
-		log.Fatalf("DB Host Env Conf Var %s was not found\n", key)
-		panic("DB Credentials Error")
-	}
-	return envConf
-}
-
-func (d *DbAdapter) setPanicError(panicCode string) {
-	d._handleRedirectAndPanic.PanicCode = panicCode
 }
 
 func (d *DbAdapter) prepareFieldsForQueryStatement(fields []string, decorator string, seperator string, trimRight bool) string {

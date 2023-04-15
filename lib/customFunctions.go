@@ -671,3 +671,12 @@ func GetCurrentMicrotime() int {
 	now := time.Now()
 	return int(now.UnixNano() / 1000)
 }
+
+func GetEnvConf(key string) string {
+	envConf, ok := os.LookupEnv(key)
+	if !ok {
+		log.Fatalf("Env Conf Var %s was not found\n", key)
+		panic("Environment config var not set.")
+	}
+	return envConf
+}

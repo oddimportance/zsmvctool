@@ -45,8 +45,6 @@ func (d *DbAdapter) execInsert(insertString string) int64 {
 	var lastInssertedId, error = insertRes.LastInsertId()
 	if error == nil {
 		return lastInssertedId
-	} else {
-		return 0
 	}
 
 	return 0
