@@ -15,7 +15,7 @@ type GetEnvConfigVars struct {
 func (g *GetEnvConfigVars) Initiate(envConfigFilePath string) persistence.EnvConfigVars {
 
 	var _readFile = new(ReadFile)
-	var fileContent = _readFile.Initiate(envConfigFilePath)
+	var fileContent = _readFile.Initiate(envConfigFilePath + "settings.json")
 
 	g.unmarshalToJson(fileContent)
 
