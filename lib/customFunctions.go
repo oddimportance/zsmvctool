@@ -15,6 +15,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"sort"
 
 	// "github.com/oddimportance/zsmvctool/persistence"
 	"reflect"
@@ -679,4 +680,24 @@ func GetEnvConf(key string) string {
 		panic("Environment config var not set.")
 	}
 	return envConf
+}
+
+func MapToSortedArray(inputMap map[int]map[string]string, convertbyid string) []map[string]string {
+	// Step 1: Extract the maps from the input map and store them in a slice
+	inputSlice := make([]map[string]string, 0, len(inputMap))
+	for _, m := range inputMap {
+		inputSlice = append(inputSlice, m)
+	}
+
+	// Step 2: Define a custom comparison function that compares the "zs_rest_id" keys
+	compareFunc := func(i, j int) bool {
+		id1, _ := strconv.Atoi(inputSlice[i][convertbyid])
+		id2, _ := strconv.Atoi(inputSlice[j][convertbyid])
+		return id1 < id2
+	}
+
+	// Step 3: Sort the slice by the "zs_rest_id" key using the sort.Slice function
+	sort.Slice(inputSlice, compareFunc)
+
+	return inputSlice
 }
