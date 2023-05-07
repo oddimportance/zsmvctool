@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"log"
+	// "log"
 	"net/http"
 
 	"github.com/gorilla/sessions"
