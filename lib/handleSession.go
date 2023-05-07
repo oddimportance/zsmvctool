@@ -1,8 +1,6 @@
 package lib
 
 import (
-	"fmt"
-	// "log"
 	"net/http"
 
 	"github.com/gorilla/sessions"
@@ -133,7 +131,7 @@ func (h *HandleSession) setSession(sessionAgeInDays int, sessionName string) *se
 	session, err := h.store.Get(h.r, sessionName)
 
 	if err != nil {
-		fmt.Println("Error creating session store :", err)
+		// fmt.Println("Error creating session store :", err)
 		return nil
 	}
 
