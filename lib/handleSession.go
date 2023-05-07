@@ -98,8 +98,8 @@ func (h *HandleSession) unsetCookie(session *sessions.Session, key string) {
 func (h *HandleSession) getCookie(session *sessions.Session, key string) string {
 	// log.Println("accessing session key:", key)
 	if session == nil {
-		log.Printf("session is empty, key:-%s- could not be accessed\n", key)
-		log.Println("trying to re-initialize sessiion")
+		// log.Printf("session is empty, key:-%s- could not be accessed\n", key)
+		// log.Println("trying to re-initialize sessiion")
 		h.initiateSesionStore()
 		return ""
 	}
