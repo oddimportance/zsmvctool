@@ -154,6 +154,7 @@ func (t *TemplateEngine) _execute(controller, action string, parseTemplateToStri
 		"TemplateFunctionTranslateFormatString":   t.TemplateFunctionTranslateFormatString,
 		"TemplateFunctionConcateStrings":          t.TemplateFunctionConcateStrings,
 		"TemplateFunctionConcateHtml":             t.TemplateFunctionConcateHtml,
+		"TemplateFunctionNumberToGermanFormat":    t.TemplateFunctionNumberToGermanFormat,
 	})
 
 	// setting local (theme) css files handels
