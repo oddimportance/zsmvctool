@@ -502,16 +502,39 @@ func NormalizeGermanFormat(stringToConvert string) string {
 // 	return messagePrinter.Sprintf("%d", StringToInt(number))
 // }
 
+// func NumberToGermanFormat(number interface{}) string {
+
+// 	const float64Type float64 = 0.0
+// 	var numberTypeof = reflect.TypeOf(number)
+// 	var float64TypeOf = reflect.TypeOf(float64Type)
+
+// 	if numberTypeof.Kind() == float64TypeOf.Kind() {
+// 		return FindReplace(messagePrinter.Sprintf("%.2f", number), ",00", "")
+// 	}
+// 	return messagePrinter.Sprintf("%d", number)
+// }
+
 func NumberToGermanFormat(number interface{}) string {
 
-	const float64Type float64 = 0.0
-	var numberTypeof = reflect.TypeOf(number)
-	var float64TypeOf = reflect.TypeOf(float64Type)
-
-	if numberTypeof.Kind() == float64TypeOf.Kind() {
-		return FindReplace(messagePrinter.Sprintf("%.2f", number), ",00", "")
+	switch v := number.(type) {
+	case float64:
+		// fmt.Println("Converted to float64:", v)
+		// return FindReplace(messagePrinter.Sprintf("%.2f", number), ",00", "")
+		return messagePrinter.Sprintf("%.2f", number)
+	case int:
+		// fmt.Println("Converted to int:", v)
+		// return messagePrinter.Sprintf("%d", number)
+		return messagePrinter.Sprintf("%.2f", number)
+	case string:
+		f, err := strconv.ParseFloat(v, 64)
+		if err == nil {
+			// return FindReplace(messagePrinter.Sprintf("%.2f", f), ",00", "")
+			return messagePrinter.Sprintf("%.2f", f)
+		}
+	default:
+		fmt.Println(number, ": conversion failed")
 	}
-	return messagePrinter.Sprintf("%d", number)
+	return "0"
 }
 
 func StringToTimeHourAndMinute(timeString string) (time.Time, error) {

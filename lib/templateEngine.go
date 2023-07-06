@@ -362,3 +362,7 @@ func (t *TemplateEngine) TemplateFunctionEncryptIdForUrl(idToEncrypt string) str
 func (t *TemplateEngine) TemplateFunctionObfuscateString(stringToObfuscate string, obfuscationLength int) string {
 	return ObfuscateString(stringToObfuscate, obfuscationLength)
 }
+
+func (t *TemplateEngine) TemplateFunctionNumberToGermanFormat(number ...interface{}) string {
+	return NumberToGermanFormat(number)
+}
