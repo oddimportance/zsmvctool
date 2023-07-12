@@ -28,16 +28,17 @@ func (f *FormHandler) readValuesFromGivenOptionKey(element persistence.FormEleme
 	row := map[string]string{}
 	optionSelected := ""
 
-	// fmt.Println(element.FieldOptionsFromDatabaseQuery.FieldForLable)
-
 	// to respect mysql order by use
 	// iteration and not for loop
 	for i := 0; i < len(dbRes); i++ {
 		row = dbRes[i]
+		// log.Println(element.FieldOptionsFromDatabaseQuery.OptionSelected, row[element.FieldOptionsFromDatabaseQuery.FieldForValue])
 
-		if element.FieldOptionsFromDatabaseQuery.OptionSelected == row[element.FieldOptionsFromDatabaseQuery.FieldForValue] {
-			optionSelected = f.checkIfSelectOrChecked(element)
-		}
+		// if element.FieldOptionsFromDatabaseQuery.OptionSelected == row[element.FieldOptionsFromDatabaseQuery.FieldForValue] {
+		// 	// if InArray(element.FieldOptionsFromDatabaseQuery.OptionSelected, row[element.FieldOptionsFromDatabaseQuery.FieldForValue]) {
+		// 	optionSelected = f.checkIfSelectOrChecked(element)
+		// }
+		optionSelected = f.isCheckboxOrSelectOptionSelected(element, element.FieldOptionsFromDatabaseQuery.OptionSelected, row[element.FieldOptionsFromDatabaseQuery.FieldForValue])
 
 		optionsToReturn = append(optionsToReturn,
 			persistence.Option{

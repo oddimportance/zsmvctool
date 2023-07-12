@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+
 	//"html/template"
 	"encoding/xml"
 	"net/http"
@@ -182,4 +183,24 @@ func (f *FormHandler) MakeDBFieldsFromFormElements(dbPrefix string, fieldsToSkip
 		}
 	}
 	return fieldsToReturn, valuesToReturn
+}
+
+func (f *FormHandler) isCheckboxOrSelectOptionSelected(element persistence.FormElements, optionSelected, valueToCheckAgainst string) string {
+
+	var isSlice bool = false
+	var optionSelectedSlice []string
+	if optionSelected != "" {
+		optionSelectedSlice, isSlice = IsArray(optionSelected, ",")
+	}
+	if isSlice {
+		if InArray(optionSelectedSlice, valueToCheckAgainst) {
+			return f.checkIfSelectOrChecked(element)
+		}
+	} else {
+		if optionSelected == valueToCheckAgainst {
+			// if InArray(element.FieldOptionsFromDatabaseQuery.OptionSelected, row[element.FieldOptionsFromDatabaseQuery.FieldForValue]) {
+			return f.checkIfSelectOrChecked(element)
+		}
+	}
+	return ""
 }

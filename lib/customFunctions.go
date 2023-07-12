@@ -724,3 +724,24 @@ func MapToSortedArray(inputMap map[int]map[string]string, convertbyid string) []
 
 	return inputSlice
 }
+
+func IsArray(input, seperator string) ([]string, bool) {
+	var inputSplitted = strings.Split(input, seperator)
+	var converted interface{}
+	converted = inputSplitted
+	if reflect.TypeOf(converted).Kind() == reflect.Slice {
+		sliceType := reflect.TypeOf(converted).Elem()
+		if sliceType.Kind() == reflect.String {
+			sliceValue := reflect.ValueOf(converted)
+			result := make([]string, sliceValue.Len())
+
+			for i := 0; i < sliceValue.Len(); i++ {
+				result[i] = sliceValue.Index(i).String()
+			}
+
+			return result, true
+		}
+	}
+
+	return nil, false
+}

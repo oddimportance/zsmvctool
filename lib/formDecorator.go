@@ -119,17 +119,19 @@ func (f *FormHandler) handleRadioCheckboxIsChecked(element persistence.FormEleme
 		// Is checked only if the option value of
 		// the element is the same as the post value
 		// of the element
-		if f.postRequest.PostFormValue(element.FieldName) == option.OptionValue {
-			return f.checkIfSelectOrChecked(element)
-		} else {
-			// looks like the user has either unchecked
-			// the option or is not selected by default
-			return ""
-		}
+		// if f.postRequest.PostFormValue(element.FieldName) == option.OptionValue {
+		// 	return f.checkIfSelectOrChecked(element)
+		// } else {
+		// 	// looks like the user has either unchecked
+		// 	// the option or is not selected by default
+		// 	return ""
+		// }
+		return f.isCheckboxOrSelectOptionSelected(element, f.postRequest.PostFormValue(element.FieldName), option.OptionValue)
 	} else if f.valuesFromDatabase != nil {
-		if f.valuesFromDatabase[fmt.Sprintf("%s%s", f.dbTablePrefix, strings.ToLower(element.FieldName))] == option.OptionValue {
-			return f.checkIfSelectOrChecked(element)
-		}
+		// if f.valuesFromDatabase[fmt.Sprintf("%s%s", f.dbTablePrefix, strings.ToLower(element.FieldName))] == option.OptionValue {
+		// 	return f.checkIfSelectOrChecked(element)
+		// }
+		return f.isCheckboxOrSelectOptionSelected(element, f.valuesFromDatabase[fmt.Sprintf("%s%s", f.dbTablePrefix, strings.ToLower(element.FieldName))], option.OptionValue)
 	}
 
 	// the post method seems to be GET
